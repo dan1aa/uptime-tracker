@@ -1,13 +1,13 @@
 import { Badge } from "@/components/ui/badge";
 import { MonitorStatus, STATUS_CONFIG } from "@/constants/site-status";
 
-interface SiteStatusBadgeProps {
+interface StatusBadgeProps {
   status: MonitorStatus;
   sitesCount: number;
   className?: string;
 }
 
-export function SiteStatusBadge(props: SiteStatusBadgeProps) {
+function StatusBadge(props: StatusBadgeProps) {
 
   const { status, sitesCount, className } = props;
 
@@ -25,3 +25,5 @@ export function SiteStatusBadge(props: SiteStatusBadgeProps) {
     </Badge>
   );
 }
+
+export default StatusBadge;

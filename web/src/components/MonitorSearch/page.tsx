@@ -14,7 +14,7 @@ function MonitorSearch(props: MonitorSearchProps) {
 
 
   return (
-    <div className={`h-fit w-1/2 flex items-center rounded-lg border border-gray-500/15 px-3 ${className}`}>
+    <div className={`h-fit flex-1 flex items-center rounded-lg border border-gray-500/15 px-3 ${className}`}>
       <Search className="h-4 w-4 text-zinc-400 shrink-0 mr-2" />
       <Input 
         value={value}

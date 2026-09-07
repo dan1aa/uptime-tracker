@@ -16,7 +16,7 @@ import {
 
 import { NAV_ITEMS, NavItem } from '../../constants/nav'
 
-export type MainSidebarProps = {
+interface MainSidebarProps {
   className?: string;
 }
 

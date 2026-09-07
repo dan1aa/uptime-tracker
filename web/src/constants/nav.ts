@@ -1,7 +1,5 @@
 import {
   Activity,
-  LayoutDashboard,
-  BellRing,
   Settings,
   Radio,
   type LucideIcon,
