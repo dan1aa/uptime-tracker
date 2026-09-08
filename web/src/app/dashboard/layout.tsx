@@ -1,5 +1,6 @@
 import MainHeader from "@/components/AppHeader/page";
 import MainSidebar from "@/components/AppSidebar/page";
+import NewSiteDialog from "@/components/NewSiteDialog/page";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
 
@@ -13,6 +14,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <main className="flex-1 min-h-0 overflow-y-auto">{children}</main>
         </div>
       </div>
+      <NewSiteDialog open={true}/>
     </SidebarProvider>
   );
 }

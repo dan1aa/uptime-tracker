@@ -1,56 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import MonitorCard from "@/components/MonitorCard/page";
 import MonitorSearch from "@/components/MonitorSearch/page";
-import MonitorFilter, {
-  MonitorFilterType,
-} from "@/components/MonitorFilter/page";
+import MonitorFilter from "@/components/MonitorFilter/page";
 import { MonitorStatus } from "@/constants/site-status";
+import { useSnapshot } from "valtio";
+import { MonitorItem, store } from "@/store";
 
 function Monitors() {
-  const MONITORS_DATA = [
-    {
-      id: "1",
-      title: "Google",
-      url: "https://google.com",
-      status: "live",
-    },
-    {
-      id: "2",
-      title: "GitHub",
-      url: "https://github.com",
-      status: "down",
-    },
-    {
-      id: "3",
-      title: "Cloudflare",
-      url: "https://cloudflare.com",
-      status: "needs_watching",
-    },
-    {
-      id: "4",
-      title: "AWS",
-      url: "https://aws.amazon.com",
-      status: "live",
-    },
-    {
-      id: "5",
-      title: "Vercel",
-      url: "https://vercel.com",
-      status: "needs_watching",
-    },
-  ];
+  const snap = useSnapshot(store)
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState<MonitorFilterType>("all");
-
-  const filteredMonitors = MONITORS_DATA.filter((monitor) => {
+  const filteredMonitors = snap.monitors.filter((monitor: MonitorItem) => {
     const matchesSearch =
-      monitor.title.toLowerCase().includes(searchQuery.toLowerCase())
+      monitor.title.toLowerCase().includes(snap.ui.searchQuery.toLowerCase())
 
     const matchesStatus =
-      activeFilter === "all" || monitor.status === activeFilter;
+      snap.ui.statusFilter === "all" || monitor.status === snap.ui.statusFilter;
 
     return matchesSearch && matchesStatus;
   });
@@ -58,8 +24,8 @@ function Monitors() {
   return (
     <div className="h-full flex flex-col">
       <div className="mb-2 shrink-0 px-3 pt-4 flex items-center gap-x-4">
-        <MonitorSearch value={searchQuery} onChange={setSearchQuery} />
-        <MonitorFilter value={activeFilter} onChange={setActiveFilter}/>
+        <MonitorSearch />
+        <MonitorFilter />
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto pr-1">

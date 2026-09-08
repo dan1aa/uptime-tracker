@@ -1,17 +1,21 @@
+"use client";
+
 import React from "react";
 import { Button } from "../ui/button";
 import { MonitorStatus } from "@/constants/site-status";
+import { actions, store } from "@/store";
+import { useSnapshot } from "valtio";
 
 interface MonitorFilterProps {
   className?: string;
-  value: string;
-  onChange: (type: MonitorStatus | "all") => void;
 }
 
 export type MonitorFilterType = MonitorStatus | "all";
 
 function MonitorFilter(props: MonitorFilterProps) {
-  const { onChange, className, value } = props;
+  const { className } = props;
+
+  const snap = useSnapshot(store)
 
   const FILTERS: { label: string; value: MonitorFilterType }[] = [
     { label: "All", value: "all" },
@@ -23,13 +27,13 @@ function MonitorFilter(props: MonitorFilterProps) {
   return (
     <div className={`w-fit h-full items-center flex gap-x-2 ${className}`}>
       {FILTERS.map((filter) => {
-        const isActive = value === filter.value;
+        const isActive = snap.ui.statusFilter === filter.value;
 
         return (
           <Button
             key={filter.value}
             type="button"
-            onClick={() => onChange(filter.value)}
+            onClick={() => {actions.setStatusFilter(filter.value)}}
             variant={isActive ? "default" : "secondary"}
             className="w-20 h-9 transition-colors"
           >
