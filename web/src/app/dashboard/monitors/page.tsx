@@ -6,17 +6,22 @@ import MonitorSearch from "@/components/MonitorSearch/page";
 import MonitorFilter from "@/components/MonitorFilter/page";
 import { MonitorStatus } from "@/constants/site-status";
 import { useSnapshot } from "valtio";
-import { MonitorItem, store } from "@/store";
+import { actions, MonitorItem, store } from "@/store";
+import EmptySearch from "@/components/EmptySearch/page";
+import { FolderIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 function Monitors() {
-  const snap = useSnapshot(store)
+  const snap = useSnapshot(store);
 
   const filteredMonitors = snap.monitors.filter((monitor: MonitorItem) => {
-    const matchesSearch =
-      monitor.title.toLowerCase().includes(snap.ui.searchMonitorQuery.toLowerCase())
+    const matchesSearch = monitor.title
+      .toLowerCase()
+      .includes(snap.ui.searchMonitorQuery.toLowerCase());
 
     const matchesStatus =
-      snap.ui.statusMonitorFilter === "all" || monitor.status === snap.ui.statusMonitorFilter;
+      snap.ui.statusMonitorFilter === "all" ||
+      monitor.status === snap.ui.statusMonitorFilter;
 
     return matchesSearch && matchesStatus;
   });
@@ -29,18 +34,22 @@ function Monitors() {
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto pr-1">
-        <div className="grid grid-cols-4 gap-4 content-start pb-4 px-3 pt-1">
-          {filteredMonitors.map((monitor) => {
-            return (
-              <MonitorCard
-                key={monitor.id}
-                url={monitor.url}
-                status={monitor.status as MonitorStatus}
-                title={monitor.title}
-                className="h-fit"
-              />
-            );
-          })}
+        <div
+          className={`grid ${filteredMonitors.length ? "grid-cols-4" : "grid-cols-1"} gap-4 content-start pb-4 px-3 pt-1`}
+        >
+          {filteredMonitors.length ? (
+            filteredMonitors.map((monitor) => {
+              return <MonitorCard key={monitor.id} monitor={monitor} />;
+            })
+          ) : (
+            <EmptySearch
+              title="No monitors found"
+              message="No monitors found, try to adjust your query or add new one"
+              Icon={FolderIcon}
+              ButtonComponent={Button}
+              buttonAttrs={{ variant: "default", children: "Add new", onClick: () => { actions.setNewSiteModalOpen(true) } }}
+            />
+          )}
         </div>
       </div>
     </div>
