@@ -4,12 +4,13 @@ import React from "react";
 import MonitorCard from "@/components/MonitorCard/page";
 import MonitorSearch from "@/components/MonitorSearch/page";
 import MonitorFilter from "@/components/MonitorFilter/page";
-import { MonitorStatus } from "@/constants/site-status";
 import { useSnapshot } from "valtio";
-import { actions, MonitorItem, store } from "@/store";
+import { actions, store } from "@/store";
 import EmptySearch from "@/components/EmptySearch/page";
 import { FolderIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MonitorDetailViewDialog from "@/components/MonitorDetailViewDialog/page";
+import { MonitorItem } from "@/types/monitor";
 
 function Monitors() {
   const snap = useSnapshot(store);
@@ -52,6 +53,7 @@ function Monitors() {
           )}
         </div>
       </div>
+      <MonitorDetailViewDialog monitor={snap.ui.selectedMonitor} />
     </div>
   );
 }

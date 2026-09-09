@@ -14,13 +14,14 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import { NAV_ITEMS, NavItem } from '../../constants/nav'
+import { NAV_ITEMS } from '../../constants/nav'
+import { NavItem } from "@/types/nav";
 
-interface MainSidebarProps {
+interface AppSidebarProps {
   className?: string;
 }
 
-function AppSidebar(props: MainSidebarProps) {
+function AppSidebar(props: AppSidebarProps) {
 
   const { className } = props;
 

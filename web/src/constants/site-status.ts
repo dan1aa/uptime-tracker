@@ -1,11 +1,6 @@
-export type MonitorStatus = "live" | "down" | "needs_watching";
+import { MonitorStatus } from "@/types/monitor";
+import { StatusConfig } from "@/types/site-status";
 
-export interface StatusConfig {
-  label: string;
-  badgeClass: string;
-  dotClass: string;
-  message: string;
-}
 
 export const STATUS_CONFIG: Record<MonitorStatus, StatusConfig> = {
   live: {

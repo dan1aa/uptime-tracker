@@ -8,7 +8,6 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { Button } from "../ui/button";
 import { LucideIcon } from "lucide-react";
 import { ButtonProps } from "@base-ui/react";
 

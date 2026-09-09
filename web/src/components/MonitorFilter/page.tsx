@@ -2,15 +2,13 @@
 
 import React from "react";
 import { Button } from "../ui/button";
-import { MonitorStatus } from "@/constants/site-status";
 import { actions, store } from "@/store";
 import { useSnapshot } from "valtio";
+import { MonitorFilterType } from "@/types/monitor";
 
 interface MonitorFilterProps {
   className?: string;
 }
-
-export type MonitorFilterType = MonitorStatus | "all";
 
 function MonitorFilter(props: MonitorFilterProps) {
   const { className } = props;

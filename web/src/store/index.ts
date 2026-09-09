@@ -1,30 +1,16 @@
 import { proxy } from "valtio";
-import { MonitorStatus } from "@/constants/site-status";
-import { MonitorFilterType } from "@/components/MonitorFilter/page";
-import { IncidentFilter } from "@/components/IncidentsFilter/page";
-
-export interface MonitorItem {
-  id: string;
-  title: string;
-  url: string;
-  status: MonitorStatus;
-}
-
-export interface IncidentItem {
-  id: string;
-  monitorId: string;
-  statusReceived: number;
-  date: Date;
-  resolved: string;
-}
+import { MonitorFilterType, MonitorItem } from "@/types/monitor";
+import { IncidentFilter, IncidentItem } from "@/types/incident";
 
 interface AppStore {
   ui: {
     isNewSiteModalOpen: boolean;
+    isMonitorDetailViewModalOpen: boolean;
     searchMonitorQuery: string;
     statusMonitorFilter: MonitorFilterType;
     searchIncidentsQuery: string;
     incidentsFilter: string;
+    selectedMonitor: MonitorItem | null;
   };
   monitors: MonitorItem[];
   incidents: IncidentItem[];
@@ -33,15 +19,17 @@ interface AppStore {
 export const store = proxy<AppStore>({
   ui: {
     isNewSiteModalOpen: false,
+    isMonitorDetailViewModalOpen: false,
     searchMonitorQuery: "",
     statusMonitorFilter: "all",
     searchIncidentsQuery: "",
-    incidentsFilter: "all"
+    incidentsFilter: "all",
+    selectedMonitor: null
   },
   monitors: [
-    { id: "1", title: "Google", url: "https://google.com", status: "live" },
-    { id: "2", title: "GitHub", url: "https://github.com", status: "down" },
-    { id: "3", title: "Cloudflare", url: "https://cloudflare.com", status: "needs_watching" },
+    { id: "1", title: "Google", url: "https://google.com", status: "live", lastRequest: new Date(), lastSuccessRequest: new Date(Date.now() - 10 * 60 * 1000), requestsFrequency: 15, lastFailedRequests: 4 },
+    { id: "2", title: "GitHub", url: "https://github.com", status: "down", lastRequest: new Date(), lastSuccessRequest: new Date(Date.now() - 10 * 60 * 1000), requestsFrequency: 15, lastFailedRequests: 4 },
+    { id: "3", title: "Cloudflare", url: "https://cloudflare.com", status: "needs_watching", lastRequest: new Date(), lastSuccessRequest: new Date(Date.now() - 10 * 60 * 1000), requestsFrequency: 15, lastFailedRequests: 4 },
   ],
   incidents: [
     { id: crypto.randomUUID(), monitorId: "2", statusReceived: 403, date: new Date(), resolved: "not_resolved" },
@@ -52,6 +40,9 @@ export const store = proxy<AppStore>({
 export const actions = {
   setNewSiteModalOpen: (open: boolean) => {
     store.ui.isNewSiteModalOpen = open;
+  },
+  setMonitorDetailViewModalOpen: (open: boolean) => {
+    store.ui.isMonitorDetailViewModalOpen = open;
   },
 
   setSearchMonitorQuery: (query: string) => {
@@ -77,4 +68,7 @@ export const actions = {
   removeMonitor: (id: string) => {
     store.monitors = store.monitors.filter((m) => m.id !== id);
   },
+  setActiveMonitor: (monitor: MonitorItem) => {
+    store.ui.selectedMonitor = monitor;
+  }
 };

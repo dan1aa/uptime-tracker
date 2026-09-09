@@ -4,8 +4,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { useSnapshot } from "valtio";
 import { actions, store } from "@/store";
-
-export type IncidentFilter = "resolved" | "not_resolved" | "all";
+import { IncidentFilter } from "@/types/incident";
 
 function IncidentsFilter() {
   const snap = useSnapshot(store);

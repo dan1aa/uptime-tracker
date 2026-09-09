@@ -4,13 +4,14 @@ import React from "react";
 import StatusBadge from "../StatusBadge/page";
 import { Button } from "../ui/button";
 import { useSnapshot } from "valtio";
-import { actions, MonitorItem, store } from "@/store";
+import { actions, store } from "@/store";
+import { MonitorItem } from "@/types/monitor";
 
-interface MainHeaderProps {
+interface AppHeaderProps {
   className?: string;
 };
 
-function AppHeader(props: MainHeaderProps) {
+function AppHeader(props: AppHeaderProps) {
 
   const snap = useSnapshot(store);
 

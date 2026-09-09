@@ -1,16 +1,9 @@
+import { NavItem } from "@/types/nav";
 import {
   Activity,
   Settings,
   Radio,
-  type LucideIcon,
 } from "lucide-react";
-
-export interface NavItem {
-  title: string;
-  url: string;
-  icon: LucideIcon;
-  badge?: string | number;
-}
 
 export const NAV_ITEMS: NavItem[] = [
   {
