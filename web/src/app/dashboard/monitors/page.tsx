@@ -13,10 +13,10 @@ function Monitors() {
 
   const filteredMonitors = snap.monitors.filter((monitor: MonitorItem) => {
     const matchesSearch =
-      monitor.title.toLowerCase().includes(snap.ui.searchQuery.toLowerCase())
+      monitor.title.toLowerCase().includes(snap.ui.searchMonitorQuery.toLowerCase())
 
     const matchesStatus =
-      snap.ui.statusFilter === "all" || monitor.status === snap.ui.statusFilter;
+      snap.ui.statusMonitorFilter === "all" || monitor.status === snap.ui.statusMonitorFilter;
 
     return matchesSearch && matchesStatus;
   });

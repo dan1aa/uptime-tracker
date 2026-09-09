@@ -27,13 +27,13 @@ function MonitorFilter(props: MonitorFilterProps) {
   return (
     <div className={`w-fit h-full items-center flex gap-x-2 ${className}`}>
       {FILTERS.map((filter) => {
-        const isActive = snap.ui.statusFilter === filter.value;
+        const isActive = snap.ui.statusMonitorFilter === filter.value;
 
         return (
           <Button
             key={filter.value}
             type="button"
-            onClick={() => {actions.setStatusFilter(filter.value)}}
+            onClick={() => {actions.setStatusMonitorFilter(filter.value)}}
             variant={isActive ? "default" : "secondary"}
             className="w-20 h-9 transition-colors"
           >
